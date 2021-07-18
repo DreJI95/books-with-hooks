@@ -6,8 +6,19 @@ const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
-   Query:{ 
-        user: async (parent, { username }) => {
+   Query:{
+        me: async (parent, args, context) => {
+            if (context.user) {
+            const userData = await User.findOne({ _id: context.user._id })
+                .select('-__v -password')
+                .populate('savedBooks');
+    
+                return userData;
+            }
+  
+            throw new AuthenticationError('Not logged in');
+        },
+        user: async (parent, { username }, username) => {
             return User.findOne({ username })
             .select('-__v -password')
             .populate('savedBooks')
