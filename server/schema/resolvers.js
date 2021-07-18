@@ -18,11 +18,11 @@ const resolvers = {
   
             throw new AuthenticationError('Not logged in');
         },
-        user: async (parent, { username }, username) => {
-            return User.findOne({ username })
-            .select('-__v -password')
-            .populate('savedBooks')
-        }, 
+        // user: async (parent, { username }) => {
+        //     return User.findOne({ username })
+        //     .select('-__v -password')
+        //     .populate('savedBooks')
+        // }, 
    },
    Mutation: {
         addUser: async (parent, args) => {
@@ -42,7 +42,6 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-
         saveBook: async (parent, args, context) => {
             if (context.user)
             {
@@ -55,8 +54,7 @@ const resolvers = {
 
             throw new AuthenticationError('You need to be logged in!');
         },
-
-        deleteBook: async (parent, args, context) => {
+        removeBook: async (parent, args, context) => {
             if (context.user)
             {
                 await User.findByIdAndUpdate(
