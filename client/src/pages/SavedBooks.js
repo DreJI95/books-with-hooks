@@ -32,8 +32,7 @@ const SavedBooks = () => {
        if (!data) {
          throw new Error('You need to be logged in to view this page.');
        }
-       //console.log(data.me)
-       //userData = data.me;
+
        const userData = data.me;
 
   //   const getUserData = async () => {
