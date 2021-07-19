@@ -3,6 +3,9 @@ import decode from 'jwt-decode';
 
 // create a new class to instantiate for a user
 class AuthService {
+
+  getUser()
+  { return decode(this.getToken()); }
   
   // check if user's logged in
   loggedIn() {
